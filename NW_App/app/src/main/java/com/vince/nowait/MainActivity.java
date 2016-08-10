@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.vince.nowait.fragments.HomeFragment;
 import com.vince.nowait.fragments.MainFragment;
+import com.vince.nowait.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -103,8 +104,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(login);
         } else if (id == R.id.nav_search) {
             // Handles the Search Option
-            Intent search = new Intent(this, Search.class);
-            startActivity(search);
+            fm.beginTransaction().replace(R.id.content_frame, new SearchFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
