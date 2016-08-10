@@ -1,5 +1,6 @@
 package com.vince.nowait;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.vince.nowait.fragments.HomeFragment;
+import com.vince.nowait.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
     }
 
     @Override
@@ -79,10 +86,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        FragmentManager fm = getFragmentManager();
+
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
             // Handle the camera action
+            fm.beginTransaction().replace(R.id.content_frame, new HomeFragment()).commit();
         } else if (id == R.id.nav_profile) {
             // Handles the Profile action
             Intent profile = new Intent(this, Profile.class);
