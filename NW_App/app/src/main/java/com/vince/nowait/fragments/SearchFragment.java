@@ -3,15 +3,10 @@ package com.vince.nowait.fragments;
 
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.vince.nowait.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +18,7 @@ public class SearchFragment extends ListFragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        String[] values = new String[]{"McDonalds", "Burger King", "Chik-Fil-A", "Subway",
+        String[] values = new String[]{"mcd", "Burger King", "Chik-Fil-A", "Subway",
                 "Papa John's", "Domino's", "Pizza Hut", "Arby's", "Pie Five", "Jimmy John's",
                 "Burger place", "Pizza Place"};
 
