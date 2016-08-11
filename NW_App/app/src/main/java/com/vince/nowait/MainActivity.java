@@ -15,8 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.vince.nowait.fragments.HomeFragment;
 import com.vince.nowait.fragments.MainFragment;
+import com.vince.nowait.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,15 +27,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -91,12 +82,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-            fm.beginTransaction().replace(R.id.content_frame, new HomeFragment()).commit();
+            // Handle the Home action
+            fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
         } else if (id == R.id.nav_profile) {
             // Handles the Profile action
-            Intent profile = new Intent(this, Profile.class);
-            startActivity(profile);
+            fm.beginTransaction().replace(R.id.content_frame, new ProfileFragment()).commit();
+
         } else if (id == R.id.nav_login) {
             // Handles the Log in Option
             Intent login = new Intent(this, Login.class);
