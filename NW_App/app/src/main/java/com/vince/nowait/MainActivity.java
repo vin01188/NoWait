@@ -22,6 +22,11 @@ import com.vince.nowait.fragments.SearchFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String RESTAURANT_ID_EXTRA = "com.vince.nowait.Restaurant Identifier";
+    public static final String RESTAURANT_TITLE_EXTRA = "com.vince.nowait.Restaurant Title";
+    public static final String RESTAURANT_MESSAGE_EXTRA = "com.vince.nowait.Restaurant Message";
+    public static final String RESTAURANT_CATEGORY_EXTRA = "com.vince.nowait.Restaurant Category";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

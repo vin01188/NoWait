@@ -19,6 +19,13 @@ import java.util.ArrayList;
 public class NoteAdapter extends ArrayAdapter<Note>
 {
 
+    public static class ViewHolder
+    {
+        TextView title;
+        TextView note;
+        ImageView noteIcon;
+    }
+
     public NoteAdapter(Context context, ArrayList<Note> notes)
     {
         super(context, 0, notes);
@@ -29,18 +36,27 @@ public class NoteAdapter extends ArrayAdapter<Note>
     {
         Note note = getItem(position);
 
+        ViewHolder viewHolder;
+
         if(convertView == null)
         {
+            viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row, parent, false);
+
+            viewHolder.title = (TextView) convertView.findViewById(R.id.listItemNoteTitle);
+            viewHolder.note = (TextView) convertView.findViewById(R.id.listItemNoteBody);
+            viewHolder.noteIcon = (ImageView) convertView.findViewById(R.id.listItemNoteImg);
+
+            convertView.setTag(viewHolder);
         }
-
-        TextView noteTitle = (TextView) convertView.findViewById(R.id.listItemNoteTitle);
-        TextView noteText = (TextView) convertView.findViewById(R.id.listItemNoteBody);
-        ImageView noteIcon = (ImageView) convertView.findViewById(R.id.listItemNoteImg);
-
-        noteTitle.setText(note.getTitle());
-        noteText.setText(note.getMessage());
-        noteIcon.setImageResource(note.getAssociatedDrawable());
+        else
+        {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        
+        viewHolder.title.setText(note.getTitle());
+        viewHolder.note.setText(note.getMessage());
+        viewHolder.noteIcon.setImageResource(note.getAssociatedDrawable());
         return convertView;
     }
 }

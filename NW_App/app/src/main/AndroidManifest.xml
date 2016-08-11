@@ -26,10 +26,11 @@
         <activity android:name=".Profile" />
         <activity
             android:name=".Login"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".Search"
-            android:label="Search"></activity>
+            android:label="Search" />
+        <activity android:name=".RestaurantDetailActivity"></activity>
     </application>
 
 </manifest>
