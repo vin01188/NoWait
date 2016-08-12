@@ -20,6 +20,10 @@ public class RestaurantFragment extends Fragment {
     Chronometer waitTimer;
     boolean timerOn = false;
 
+    public RestaurantFragment() {
+        // Required empty public constructor
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
