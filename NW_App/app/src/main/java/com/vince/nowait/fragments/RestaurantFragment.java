@@ -1,6 +1,7 @@
 package com.vince.nowait.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -12,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.vince.nowait.MainActivity;
 import com.vince.nowait.R;
 
 public class RestaurantFragment extends Fragment {
@@ -57,6 +60,21 @@ public class RestaurantFragment extends Fragment {
         });
         //ImageView image = (ImageView) view.findViewById(R.id.profileImageBig);
         //image.setImageResource(R.drawable.profile_icon);
+
+        //Get references to the name, message, and icon values
+        TextView title = (TextView) view.findViewById(R.id.restaurantName);
+        TextView message = (TextView) view.findViewById(R.id.restaurantMessage);
+        ImageView icon = (ImageView) view.findViewById(R.id.restaurantIcon);
+
+        Intent intent = getActivity().getIntent();
+
+        //Retrieve the values from the row that was clicked
+        title.setText(intent.getExtras().getString(MainActivity.RESTAURANT_TITLE_EXTRA));
+        message.setText(intent.getExtras().getString(MainActivity.RESTAURANT_MESSAGE_EXTRA));
+
+        Note.Category noteCat = (Note.Category) intent.getSerializableExtra(MainActivity.RESTAURANT_CATEGORY_EXTRA);
+        icon.setImageResource(Note.categoryToDrawable(noteCat));
+
         return view;
     }
 }

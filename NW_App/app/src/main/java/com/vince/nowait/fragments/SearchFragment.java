@@ -42,11 +42,11 @@ public class SearchFragment extends ListFragment
         */
 
         notes = new ArrayList<Note>();
-        notes.add(new Note("McDonald's", "Wait time: 5 minutes", Note.Category.PERSONAL));
-        notes.add(new Note("Burger King", "Wait time: 10 minutes", Note.Category.PERSONAL));
-        notes.add(new Note("Chik-Fil-A", "Wait time: 50 minutes", Note.Category.PERSONAL));
-        notes.add(new Note("Subway", "Wait time: 3 minutes", Note.Category.PERSONAL));
-        notes.add(new Note("Pizza Hut", "Wait time: 2 minutes", Note.Category.PERSONAL));
+        notes.add(new Note("McDonald's", "Address: \nPhone number:", Note.Category.PERSONAL));
+        notes.add(new Note("Burger King", "Address: \nPhone number:", Note.Category.PERSONAL));
+        notes.add(new Note("Chik-Fil-A", "Address: \n Phone number:", Note.Category.PERSONAL));
+        notes.add(new Note("Subway", "Address: \n Phone number:", Note.Category.PERSONAL));
+        notes.add(new Note("Pizza Hut", "Address: \n Phone number:", Note.Category.PERSONAL));
 
         noteAdapter = new NoteAdapter(getActivity(), notes);
         setListAdapter(noteAdapter);
