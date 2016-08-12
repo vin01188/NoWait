@@ -18,9 +18,15 @@ import android.view.View;
 import com.vince.nowait.fragments.MainFragment;
 import com.vince.nowait.fragments.ProfileFragment;
 import com.vince.nowait.fragments.RestaurantFragment;
+import com.vince.nowait.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String RESTAURANT_ID_EXTRA = "com.vince.nowait.Restaurant Identifier";
+    public static final String RESTAURANT_TITLE_EXTRA = "com.vince.nowait.Restaurant Title";
+    public static final String RESTAURANT_MESSAGE_EXTRA = "com.vince.nowait.Restaurant Message";
+    public static final String RESTAURANT_CATEGORY_EXTRA = "com.vince.nowait.Restaurant Category";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +103,8 @@ public class MainActivity extends AppCompatActivity
             // Handles the Search Option
             Intent search = new Intent(this, Search.class);
             startActivity(search);
+            fm.beginTransaction().replace(R.id.content_frame, new SearchFragment()).commit();
         }else if (id == R.id.nav_restaurant) {
-            // Handles the Profile action
             fm.beginTransaction().replace(R.id.content_frame, new RestaurantFragment()).commit();
         }
 
