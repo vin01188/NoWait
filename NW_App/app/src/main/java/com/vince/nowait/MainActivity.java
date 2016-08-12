@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(login);
         } else if (id == R.id.nav_search) {
             // Handles the Search Option
-            Intent search = new Intent(this, Search.class);
-            startActivity(search);
+            //Intent search = new Intent(this, Search.class);
+            //startActivity(search);
             fm.beginTransaction().replace(R.id.content_frame, new SearchFragment()).commit();
         }else if (id == R.id.nav_restaurant) {
             fm.beginTransaction().replace(R.id.content_frame, new RestaurantFragment()).commit();

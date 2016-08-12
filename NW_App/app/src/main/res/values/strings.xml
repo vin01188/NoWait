@@ -21,7 +21,7 @@
     </string>
 
     <!-- Strings related to fragments -->
-    <string name="viewFragmentTitle">View Restaurant</string>
+    <string name="viewFragmentTitle">Back to results</string>
     <string name="editFragmentTitle">Edit Restaurant</string>
 
     <!-- TODO: Remove or change this placeholder text -->
