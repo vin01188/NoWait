@@ -20,6 +20,11 @@
         completions."
     </string>
 
+    <!-- Strings related to fragments -->
+    <string name="viewFragmentTitle">View Restaurant</string>
+    <string name="editFragmentTitle">Edit Restaurant</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

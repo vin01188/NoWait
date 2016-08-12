@@ -65,9 +65,13 @@ public class SearchFragment extends ListFragment
 
     private void launchNoteDetailActivity(int position)
     {
+        //retrieve information for the note item that was clicked on
         Note note = (Note) getListAdapter().getItem(position);
+
+        //create a new intent that launches the new activity
         Intent intent = new Intent(getActivity(), RestaurantDetailActivity.class);
-        
+
+        //pass along the information of the note that was clicked on to the new activity
         intent.putExtra(MainActivity.RESTAURANT_TITLE_EXTRA, note.getTitle());
         intent.putExtra(MainActivity.RESTAURANT_MESSAGE_EXTRA, note.getMessage());
         intent.putExtra(MainActivity.RESTAURANT_CATEGORY_EXTRA, note.getCategory());

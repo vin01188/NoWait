@@ -30,7 +30,10 @@
         <activity
             android:name=".Search"
             android:label="Search" />
-        <activity android:name=".RestaurantDetailActivity"></activity>
+        <activity android:name=".RestaurantDetailActivity"
+            android:label="@string/editFragmentTitle"
+            android:parentActivityName="Search">
+        </activity>
     </application>
 
 </manifest>
