@@ -18,11 +18,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Log.i("Profile Fragment", "ONCREATE PROFILE FRAGMENT");
-        Resources resources = getResources();
-
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
         ImageView image = (ImageView) view.findViewById(R.id.profileImageBig);
         image.setImageResource(R.drawable.profile_icon);
         return view;

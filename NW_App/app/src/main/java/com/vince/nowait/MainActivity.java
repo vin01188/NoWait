@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.vince.nowait.fragments.MainFragment;
 import com.vince.nowait.fragments.ProfileFragment;
+import com.vince.nowait.fragments.RestaurantFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,6 +97,9 @@ public class MainActivity extends AppCompatActivity
             // Handles the Search Option
             Intent search = new Intent(this, Search.class);
             startActivity(search);
+        }else if (id == R.id.nav_restaurant) {
+            // Handles the Profile action
+            fm.beginTransaction().replace(R.id.content_frame, new RestaurantFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
