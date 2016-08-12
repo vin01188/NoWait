@@ -3,6 +3,7 @@ package com.vince.nowait.fragments;
 import android.app.Fragment;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +19,8 @@ public class RestaurantFragment extends Fragment {
 
     Button timerButton;
     Chronometer waitTimer;
-    boolean timerOn = false;
+    private boolean timerOn = false;
+    private long lastPause;
 
     public RestaurantFragment() {
         // Required empty public constructor
@@ -38,11 +40,18 @@ public class RestaurantFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!timerOn) {
+                    if (lastPause == 0) {
+                        waitTimer.setBase(SystemClock.elapsedRealtime());
+                    } else {
+                        waitTimer.setBase(waitTimer.getBase() + SystemClock.elapsedRealtime() - lastPause);
+                    }
+
                     waitTimer.start();
                     timerOn = true;
                 } else {
-                    timerOn = false;
+                    lastPause = SystemClock.elapsedRealtime();
                     waitTimer.stop();
+                    timerOn = false;
                 }
             }
         });
