@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "315067012252",
+    "firebase_url": "https://nowait-5c2a5.firebaseio.com",
+    "project_id": "nowait-5c2a5",
+    "storage_bucket": "nowait-5c2a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315067012252:android:8e2bd7fe0f5d2e83",
+        "android_client_info": {
+          "package_name": "com.vince.nowait"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315067012252-srb91farnvsuf0q7u8u4qitf9dabek7f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vince.nowait",
+            "certificate_hash": "104BA136916B7D131357118508A72C7E957937B7"
+          }
+        },
+        {
+          "client_id": "315067012252-636ni4fi5g214rutt8o5iqds2ukqa7ou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgs48tOhV6Ij67YisZdVa6hjEFK0BTv_I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315067012252-636ni4fi5g214rutt8o5iqds2ukqa7ou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
