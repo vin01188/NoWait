@@ -4,70 +4,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="15dp">
+        android:layout_below="@+id/restaurantScrollView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp">
 
-        <ImageView
-            android:id="@+id/restaurantImageBig"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            app:srcCompat="@android:color/background_dark"/>
-
-        <TextView
-            android:id="@+id/restaurantName"
-            android:layout_width="fill_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Restaurant Name"
-            android:textSize="25sp"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:layout_below="@+id/restaurantImageBig" />
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp">
 
-        <Button
-            android:id="@+id/timerButton"
-            android:text="Timer Start"
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="25dp"
-            android:layout_below="@+id/restaurantName"
-            android:layout_alignParentLeft="true"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:id="@+id/restaurantIcon"
+                android:src="@drawable/mcdonalds"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
 
-        <Button
-            android:id="@+id/reportTimeButton"
-            android:text="Report Wait Time"
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:layout_below="@+id/restaurantName"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="25dp"
-            android:layout_alignParentRight="true"/>
+            <TextView
+                android:id="@+id/restaurantName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Restaurant Name"
+                android:textSize="25sp"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/restaurantIcon" />
 
-        <TextView
-            android:id="@+id/HistoryName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Wait Time History"
-            android:textSize="25sp"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:layout_below="@+id/timerButton" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address: \nPhone number: "
+                android:id="@+id/restaurantMessage"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_below="@+id/restaurantName"/>
 
-        <Chronometer
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_below="@+id/restaurantName"
-            android:layout_toLeftOf="@+id/reportTimeButton"
-            android:layout_toStartOf="@+id/reportTimeButton"
-            android:id="@+id/waitTimer" />
+            <Button
+                android:id="@+id/timerButton"
+                android:text="Timer Start"
+                android:layout_width="125dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/restaurantMessage"
+                android:layout_alignParentLeft="true"/>
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/reportTimeButton"
+                android:text="Report Wait Time"
+                android:layout_width="125dp"
+                android:layout_height="75dp"
+                android:layout_below="@+id/restaurantMessage"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="25dp"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:id="@+id/HistoryName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Wait Time History"
+                android:textSize="25sp"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/timerButton" />
+
+            <Chronometer
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/restaurantMessage"
+                android:layout_toLeftOf="@+id/reportTimeButton"
+                android:layout_toStartOf="@+id/reportTimeButton"
+                android:id="@+id/waitTimer" />
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
 
 </FrameLayout>

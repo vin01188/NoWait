@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.vince.nowait.fragments.RestaurantFragment;
-import com.vince.nowait.fragments.RestaurantViewFragment;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
@@ -26,9 +25,8 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
         RestaurantFragment restaurantFragment = new RestaurantFragment();
 
-        //RestaurantViewFragment restaurantViewFragment = new RestaurantViewFragment();
         setTitle(R.string.viewFragmentTitle);
-        //Put the fragment into the linear layout with the tag "RESTAURANT_VIEW_FRAGMENT"
+        //Put the fragment into the linear layout
         fragmentTransaction.add(R.id.restaurant_container, restaurantFragment, "RESTAURANT_FRAGMENT");
         fragmentTransaction.commit();
     }
