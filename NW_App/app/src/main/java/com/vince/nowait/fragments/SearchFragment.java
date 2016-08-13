@@ -18,6 +18,7 @@ import com.vince.nowait.fragments.Note;
 import com.vince.nowait.fragments.NoteAdapter;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
+import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.SearchResponse;
 
 import java.io.IOException;
@@ -88,10 +89,20 @@ public class SearchFragment extends ListFragment
         Callback<SearchResponse> callback = new Callback<SearchResponse>(){
           @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response){
-              notes.add(new Note("Burger King", "Address: \nPhone number:", Note.Category.PERSONAL));
-              Log.i("test", response.body().businesses().get(0).name().toString());
+
               SearchResponse searchResponse = response.body();
-              notes.add(new Note(response.body().businesses().get(0).name().toString(), "Address: \nPhone number:", Note.Category.PERSONAL));
+              ArrayList<Business> businesses = searchResponse.businesses();
+              //loop to load in restaurants
+              for (int i = 0; i < 10; i++){
+                  Business currentbus = businesses.get(i);
+                  String businessname = currentbus.name();
+                  String address = currentbus.location().displayAddress().toString();
+                  address = address.substring(1,address.length()-1);
+                  String phonenumber = currentbus.displayPhone();
+                  notes.add(new Note(businessname, "Address: " + address + "\nPhone number: " + phonenumber, Note.Category.PERSONAL));
+              }
+
+
               noteAdapter = new NoteAdapter(getActivity(), notes);
               setListAdapter(noteAdapter);
           }

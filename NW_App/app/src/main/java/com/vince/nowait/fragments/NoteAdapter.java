@@ -65,6 +65,7 @@ public class NoteAdapter extends ArrayAdapter<Note>
         //fill each referenced view with data associated with the note it's referencing
         viewHolder.title.setText(note.getTitle());
         viewHolder.note.setText(note.getMessage());
+        // change this
         viewHolder.noteIcon.setImageResource(note.getAssociatedDrawable());
         return convertView;
     }
