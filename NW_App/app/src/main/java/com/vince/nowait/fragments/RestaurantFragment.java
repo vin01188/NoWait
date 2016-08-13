@@ -3,6 +3,8 @@ package com.vince.nowait.fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -15,8 +17,13 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.vince.nowait.MainActivity;
 import com.vince.nowait.R;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class RestaurantFragment extends Fragment {
 
@@ -72,8 +79,19 @@ public class RestaurantFragment extends Fragment {
         title.setText(intent.getExtras().getString(MainActivity.RESTAURANT_TITLE_EXTRA));
         message.setText(intent.getExtras().getString(MainActivity.RESTAURANT_MESSAGE_EXTRA));
 
-        Note.Category noteCat = (Note.Category) intent.getSerializableExtra(MainActivity.RESTAURANT_CATEGORY_EXTRA);
-        icon.setImageResource(Note.categoryToDrawable(noteCat));
+        String url = intent.getExtras().getString(MainActivity.RESTAURANT_IMAGEURL_EXTRA);
+        Picasso.with(getActivity()).load(url).into(icon);
+       /* try {
+            URL newurl = new URL(url);
+            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+            icon.setImageBitmap(mIcon_val);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }*/
 
         return view;
     }

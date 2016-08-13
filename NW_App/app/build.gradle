@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+repositories{
+    mavenCentral()
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -19,14 +23,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug {
-            debuggable true
-        }
     }
-}
-
-repositories{
-    mavenCentral()
+    packagingOptions{
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
@@ -60,6 +62,10 @@ dependencies {
 
     // Yelp
     compile 'com.yelp.clientlib:yelp-android:2.0.0'
+
+    //Picasso
+    compile 'com.squareup.picasso:picasso:2.4.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
