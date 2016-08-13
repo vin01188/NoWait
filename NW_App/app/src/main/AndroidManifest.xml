@@ -23,17 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile" />
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".Search"
             android:label="Search" />
-        <activity android:name=".RestaurantDetailActivity"
+        <activity
+            android:name=".RestaurantDetailActivity"
             android:label="@string/editFragmentTitle"
-            android:parentActivityName="Search">
-        </activity>
+            android:parentActivityName=".Search"></activity>
     </application>
 
 </manifest>

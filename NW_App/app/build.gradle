@@ -60,6 +60,7 @@ dependencies {
 
     // Yelp
     compile 'com.yelp.clientlib:yelp-android:2.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
