@@ -10,24 +10,23 @@ import com.vince.nowait.R;
 public class Note {
     private String title, message;
     private long noteId, dateCreatedMilli;
-    private Category category;
+    private String imageurl;
 
-    public enum Category{ PERSONAL, TECHNICAL, QUOTE, FINANCE }
 
-    public Note(String title, String message, Category category)
+    public Note(String title, String message, String imageurl)
     {
         this.title = title;
         this.message = message;
-        this.category = category;
+        this.imageurl = imageurl;
         this.noteId = 0;
         this.dateCreatedMilli = 0;
     }
 
-    public Note(String title, String message, Category category, long noteId, long dateCreatedMilli)
+    public Note(String title, String message, String imageUrl, long noteId, long dateCreatedMilli)
     {
         this.title = title;
         this.message = message;
-        this.category = category;
+        this.imageurl = imageUrl;
         this.noteId = noteId;
         this.dateCreatedMilli = dateCreatedMilli;
     }
@@ -42,9 +41,9 @@ public class Note {
         return message;
     }
 
-    public Category getCategory()
+    public String getImageurl()
     {
-        return category;
+        return imageurl;
     }
 
     public long getDate()
@@ -59,9 +58,9 @@ public class Note {
 
     public String toString() {
         return "ID: " + noteId + " Title: " + title + " Message: " + message + " IconID: "
-                + category.name() + " Date: " + dateCreatedMilli;
+                + imageurl + " Date: " + dateCreatedMilli;
     }
-
+/*
     public int getAssociatedDrawable()
     {
         return categoryToDrawable(category);
@@ -84,4 +83,5 @@ public class Note {
 
         return R.drawable.mcdonalds;
     }
+    */
 }

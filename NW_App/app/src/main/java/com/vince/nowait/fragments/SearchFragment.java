@@ -99,7 +99,8 @@ public class SearchFragment extends ListFragment
                   String address = currentbus.location().displayAddress().toString();
                   address = address.substring(1,address.length()-1);
                   String phonenumber = currentbus.displayPhone();
-                  notes.add(new Note(businessname, "Address: " + address + "\nPhone number: " + phonenumber, Note.Category.PERSONAL));
+                  String imageurl = currentbus.imageUrl();
+                  notes.add(new Note(businessname, "Address: " + address + "\nPhone number: " + phonenumber, imageurl));
               }
 
 
@@ -148,7 +149,7 @@ public class SearchFragment extends ListFragment
         //pass along the information of the note that was clicked on to the new activity
         intent.putExtra(MainActivity.RESTAURANT_TITLE_EXTRA, note.getTitle());
         intent.putExtra(MainActivity.RESTAURANT_MESSAGE_EXTRA, note.getMessage());
-        intent.putExtra(MainActivity.RESTAURANT_CATEGORY_EXTRA, note.getCategory());
+        intent.putExtra(MainActivity.RESTAURANT_IMAGEURL_EXTRA, note.getImageurl());
         intent.putExtra(MainActivity.RESTAURANT_ID_EXTRA, note.getId());
 
         startActivity(intent);
