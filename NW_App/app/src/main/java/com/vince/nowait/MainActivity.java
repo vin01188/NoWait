@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences mSharedPreferences;
     private GoogleApiClient mGoogleApiClient;
     private String mUsername;
-    private String mPhotoUrl;
+    private String mPhotoUrl; // To be added to profile page
     public static final String ANONYMOUS = "anonymous";
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -65,8 +65,9 @@ public class MainActivity extends AppCompatActivity
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (mFirebaseUser == null) {
-            // Not signed in, launch the Sign In activity
+        if (mFirebaseUser == null)
+        {
+            // If not signed in, launch the Sign In activity
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        // For Google Login
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -122,6 +124,15 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_logout) {
+            // User logout
+            mFirebaseAuth.signOut();
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+            mUsername = ANONYMOUS;
+
+            // Show login screen again
+            startActivity(new Intent(this, LoginActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -142,12 +153,7 @@ public class MainActivity extends AppCompatActivity
             // Handles the Profile action
             fm.beginTransaction().replace(R.id.content_frame, new ProfileFragment()).commit();
 
-        } else if (id == R.id.nav_login) {
-            // Handles the Log in Option
-            Intent login = new Intent(this, LoginActivity.class);
-            startActivity(login);
-            finish();
-        } else if (id == R.id.nav_search) {
+        }  else if (id == R.id.nav_search) {
             // Handles the Search Option
             //Intent search = new Intent(this, Search.class);
             //startActivity(search);
