@@ -7,6 +7,10 @@ repositories{
 android {
     signingConfigs {
         config {
+            keyAlias 'AndroidKey'
+            keyPassword 'androidpass'
+            storeFile file('android.jks')
+            storePassword 'androidpass'
         }
     }
     compileSdkVersion 23
@@ -22,10 +26,12 @@ android {
     buildTypes {
         debug {
             debuggable true
+            signingConfig signingConfigs.config
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     packagingOptions {
