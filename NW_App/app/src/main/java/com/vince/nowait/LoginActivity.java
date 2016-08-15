@@ -1,6 +1,7 @@
 package com.vince.nowait;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
     private SignInButton mSignInButton;
     private GoogleApiClient mGoogleApiClient;
+    GoogleSignInAccount account;
 
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -80,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements
             if (result.isSuccess())
             {
                 // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = result.getSignInAccount();
+                account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             }
             else
@@ -112,7 +114,24 @@ public class LoginActivity extends AppCompatActivity implements
                         }
                         else
                         {
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            // Retrieve user data
+                            String personName = account.getDisplayName();
+                            String personEmail = account.getEmail();
+                            String personId = account.getId();
+
+                            // Send data to main activity
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("name", personName);
+                            intent.putExtra("email", personEmail);
+                            intent.putExtra("id", personId);
+
+                            if(account.getPhotoUrl() != null)
+                            {
+                                String personPhoto = account.getPhotoUrl().toString();
+                                intent.putExtra("photo", personPhoto);
+                            }
+
+                            startActivity(intent);
                             finish();
                         }
                     }
