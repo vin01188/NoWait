@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     private SharedPreferences mSharedPreferences;
     private GoogleApiClient mGoogleApiClient;
-    private String mUsername;
+    public static String mUsername;
     private String mPhotoUrl; // To be added to profile page
     public static final String ANONYMOUS = "anonymous";
     // Firebase instance variables
@@ -151,7 +151,37 @@ public class MainActivity extends AppCompatActivity
             fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
         } else if (id == R.id.nav_profile) {
             // Handles the Profile action
-            fm.beginTransaction().replace(R.id.content_frame, new ProfileFragment()).commit();
+            ProfileFragment fragment = new ProfileFragment();
+            Bundle extras = getIntent().getExtras();
+            Bundle googleInfo = new Bundle();
+
+            if (extras != null)
+            {
+                // Send Google account info
+                googleInfo.putString("name", extras.getString("name"));
+                googleInfo.putString("email", extras.getString("email"));
+                googleInfo.putString( "id", extras.getString("id"));
+                if(extras.getString("photo") != null)
+                {
+                    googleInfo.putString("profilePic", extras.getString("photo"));
+                }
+
+                fragment.setArguments(googleInfo);
+            }
+            else
+            {
+                // User already logged in
+                googleInfo.putString("name", mUsername);
+                if(mPhotoUrl != null)
+                {
+                    googleInfo.putString("profilePic", mPhotoUrl); //PHOTO DOES NOT WORK... needs fixing
+                }
+
+                // set Fragmentclass Arguments
+                fragment.setArguments(googleInfo);
+            }
+
+            fm.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         }  else if (id == R.id.nav_search) {
             // Handles the Search Option
