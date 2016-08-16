@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "315067012252-oabgss9jpgdoi1uqmth75p1v2roer09l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vince.nowait",
+            "certificate_hash": "104BA135916B7D131357118508A72C7E947937B7"
+          }
+        },
+        {
+          "client_id": "315067012252-c0f7a70dv0lko8kffula0hnsnhapc7im.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vince.nowait",
+            "certificate_hash": "BA42C56BC5A48D836CA3288E283C23C56A115F2D"
+          }
+        },
+        {
           "client_id": "315067012252-srb91farnvsuf0q7u8u4qitf9dabek7f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
