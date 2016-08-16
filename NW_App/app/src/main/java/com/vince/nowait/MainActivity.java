@@ -2,7 +2,10 @@ package com.vince.nowait;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -11,23 +14,42 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.vince.nowait.fragments.MainFragment;
 import com.vince.nowait.fragments.ProfileFragment;
 import com.vince.nowait.fragments.RestaurantFragment;
 import com.vince.nowait.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String RESTAURANT_ID_EXTRA = "com.vince.nowait.Restaurant Identifier";
     public static final String RESTAURANT_TITLE_EXTRA = "com.vince.nowait.Restaurant Title";
     public static final String RESTAURANT_MESSAGE_EXTRA = "com.vince.nowait.Restaurant Message";
     public static final String RESTAURANT_IMAGEURL_EXTRA = "com.vince.nowait.Restaurant ImageUrl";
+
+    private static final String TAG = "MainActivity";
+    private SharedPreferences mSharedPreferences;
+    private GoogleApiClient mGoogleApiClient;
+    public static String mUsername;
+    private String mPhotoUrl; // To be added to profile page
+    public static final String ANONYMOUS = "anonymous";
+    // Firebase instance variables
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +57,32 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Set default username is anonymous.
+        mUsername = ANONYMOUS;
+        // Initialize Firebase Auth
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (mFirebaseUser == null)
+        {
+            // If not signed in, launch the Sign In activity
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        } else {
+            mUsername = mFirebaseUser.getDisplayName();
+            if (mFirebaseUser.getPhotoUrl() != null) {
+                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+            }
+        }
+
+        // For Google Login
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API)
+                .build();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -76,6 +124,15 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_logout) {
+            // User logout
+            mFirebaseAuth.signOut();
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+            mUsername = ANONYMOUS;
+
+            // Show login screen again
+            startActivity(new Intent(this, LoginActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -94,13 +151,39 @@ public class MainActivity extends AppCompatActivity
             fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
         } else if (id == R.id.nav_profile) {
             // Handles the Profile action
-            fm.beginTransaction().replace(R.id.content_frame, new ProfileFragment()).commit();
+            ProfileFragment fragment = new ProfileFragment();
+            Bundle extras = getIntent().getExtras();
+            Bundle googleInfo = new Bundle();
 
-        } else if (id == R.id.nav_login) {
-            // Handles the Log in Option
-            Intent login = new Intent(this, Login.class);
-            startActivity(login);
-        } else if (id == R.id.nav_search) {
+            if (extras != null)
+            {
+                // Send Google account info
+                googleInfo.putString("name", extras.getString("name"));
+                googleInfo.putString("email", extras.getString("email"));
+                googleInfo.putString( "id", extras.getString("id"));
+                if(extras.getString("photo") != null)
+                {
+                    googleInfo.putString("profilePic", extras.getString("photo"));
+                }
+
+                fragment.setArguments(googleInfo);
+            }
+            else
+            {
+                // User already logged in
+                googleInfo.putString("name", mUsername);
+                if(mPhotoUrl != null)
+                {
+                    googleInfo.putString("profilePic", mPhotoUrl); //PHOTO DOES NOT WORK... needs fixing
+                }
+
+                // set Fragmentclass Arguments
+                fragment.setArguments(googleInfo);
+            }
+
+            fm.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+        }  else if (id == R.id.nav_search) {
             // Handles the Search Option
             //Intent search = new Intent(this, Search.class);
             //startActivity(search);
@@ -112,5 +195,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 }
