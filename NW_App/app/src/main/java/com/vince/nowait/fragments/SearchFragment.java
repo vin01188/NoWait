@@ -6,20 +6,22 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
+
 import android.view.View;
-import android.view.Window;
+
 import android.widget.ListView;
 
 import com.vince.nowait.MainActivity;
+
 import com.vince.nowait.RestaurantDetailActivity;
-import com.vince.nowait.fragments.Note;
-import com.vince.nowait.fragments.NoteAdapter;
+
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.Business;
+import com.yelp.clientlib.entities.Coordinate;
 import com.yelp.clientlib.entities.SearchResponse;
+import com.yelp.clientlib.entities.options.CoordinateOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,44 +45,7 @@ public class SearchFragment extends ListFragment
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        /*
-        String[] values = new String[]{"mcd", "Burger King", "Chik-Fil-A", "Subway",
-                "Papa John's", "Domino's", "Pizza Hut", "Arby's", "Pie Five", "Jimmy John's",
-                "Burger place", "Pizza Place"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, values);
-
-        setListAdapter(adapter);
-        */
-        /*
-        new AsyncTask<Void,Void,String>() {
-            @Override
-            protected String doInBackground(Void... params) {
-                YelpAPIFactory apiFactory = new YelpAPIFactory("NRgw6sbUbjHMtLSa6NOn6Q", "7Xztu7llvrePGYyL1Q8GmUz7gfA",
-                        "BGwMfP3C0etBQ1WEBYINnXvzId7vDZJ0", "vZr0uqC-nBXk2H2Dv6zRM5mRtxo");
-                YelpAPI yelpAPI = apiFactory.createAPI();
-                Map<String,String> params1 = new HashMap<>();
-                params1.put("term","food");
-                Call<SearchResponse> call = yelpAPI.search("Ellicott City", params1);
-                try {
-                    Response<SearchResponse> response = call.execute();
-                    Log.i("test", "response found");
-                    return response.body().businesses().get(0).name().toString();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return "hi";
-                }
-            }
-
-            @Override
-            protected void onPostExecute(String result){
-                Log.i("result", result);
-                test = result;
-                notes.add(new Note(test, "Address: \nPhone number:", Note.Category.PERSONAL));
-            }
-        }.execute();
-        */
         notes = new ArrayList<Note>();
 
         YelpAPIFactory apiFactory = new YelpAPIFactory("NRgw6sbUbjHMtLSa6NOn6Q", "7Xztu7llvrePGYyL1Q8GmUz7gfA",
@@ -114,17 +79,39 @@ public class SearchFragment extends ListFragment
           }
         };
         Map<String,String> params = new HashMap<>();
-        params.put("term","food");
-        Call<SearchResponse> call = yelpAPI.search("Ellicott City", params);
+        params.put("term",getArguments().getString("rest"));
+
+        Double lat = getArguments().getDouble("lat");
+        Double lng = getArguments().getDouble("lng");
+
+        CoordinateOptions coord = new CoordinateOptions() {
+            @Override
+            public Double latitude() {
+                return getArguments().getDouble("lat");
+            }
+
+            @Override
+            public Double longitude() {
+                return getArguments().getDouble("lng");
+            }
+
+            @Override
+            public Double accuracy() {
+                return null;
+            }
+
+            @Override
+            public Double altitude() {
+                return null;
+            }
+
+            @Override
+            public Double altitudeAccuracy() {
+                return null;
+            }
+        };
+        Call<SearchResponse> call = yelpAPI.search(coord, params);
         call.enqueue(callback);
-
-        /*
-        notes.add(new Note("Burger King", "Address: \nPhone number:", Note.Category.PERSONAL));
-        notes.add(new Note("Chik-Fil-A", "Address: \n Phone number:", Note.Category.PERSONAL));
-        notes.add(new Note("Subway", "Address: \n Phone number:", Note.Category.PERSONAL));
-        notes.add(new Note("Pizza Hut", "Address: \n Phone number:", Note.Category.PERSONAL));
-*/
-
 
         //getListView().setDivider(ContextCompat.getDrawable(getActivity(), android.R.color.black));
         //getListView().setDividerHeight(1);

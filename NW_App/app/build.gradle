@@ -70,6 +70,10 @@ dependencies {
     compile 'com.yelp.clientlib:yelp-android:2.0.0'
     //Picasso
     compile 'com.squareup.picasso:picasso:2.4.0'
+
+    compile 'com.google.android.gms:play-services-location:9.4.0'
+    compile 'com.google.android.gms:play-services-maps:9.4.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

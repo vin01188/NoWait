@@ -1,6 +1,7 @@
 package com.vince.nowait;
 
 import android.app.FragmentManager;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+
+    static final int SEARCH_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -95,6 +100,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+
     }
 
     @Override
@@ -111,6 +117,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        //Code for in menu search
+        /*
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        */
+
         return true;
     }
 
@@ -132,6 +146,10 @@ public class MainActivity extends AppCompatActivity
 
             // Show login screen again
             startActivity(new Intent(this, LoginActivity.class));
+            return true;
+        } else if (id == R.id.menu_search){
+            Intent searchIntent = new Intent(this, Search.class);
+            startActivityForResult(searchIntent, SEARCH_REQUEST);
             return true;
         }
 
@@ -155,9 +173,8 @@ public class MainActivity extends AppCompatActivity
 
         }  else if (id == R.id.nav_search) {
             // Handles the Search Option
-            //Intent search = new Intent(this, Search.class);
-            //startActivity(search);
-            fm.beginTransaction().replace(R.id.content_frame, new SearchFragment()).commit();
+            Intent searchIntent = new Intent(this, Search.class);
+            startActivityForResult(searchIntent, SEARCH_REQUEST);
         }else if (id == R.id.nav_restaurant) {
             fm.beginTransaction().replace(R.id.content_frame, new RestaurantFragment()).commit();
         }
@@ -173,5 +190,25 @@ public class MainActivity extends AppCompatActivity
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == SEARCH_REQUEST){
+                double lat = data.getDoubleExtra("Lat",0);
+                double lng = data.getDoubleExtra("Long",0);
+                String rest = data.getStringExtra("Rest");
+                Bundle bundle = new Bundle();
+                bundle.putDouble("lat", lat);
+                bundle.putDouble("lng", lng);
+                bundle.putString("rest", rest);
+                SearchFragment fragment = new SearchFragment();
+
+                fragment.setArguments(bundle);
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            }
+        }
     }
 }

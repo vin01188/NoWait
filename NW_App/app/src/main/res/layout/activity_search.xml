@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vince.nowait.Search">
+    tools:context="com.vince.nowait.Search"
+    android:weightSum="1">
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:id="@+id/restaurantEdit"
+        android:hint="Restaurant"
+        android:ems="15"
+        android:layout_weight="0.73" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="15"
+        android:layout_below="@+id/restaurantEdit"
+        android:layout_alignParentStart="true"
+        android:id="@+id/locationEdit"
+        android:hint="Location" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_search"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/imageButton"
+        android:onClick="searchButton"
+        android:layout_alignBottom="@+id/locationEdit"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>
+
