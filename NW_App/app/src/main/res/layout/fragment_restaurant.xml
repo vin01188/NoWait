@@ -66,7 +66,17 @@
                 android:layout_below="@+id/restaurantMessage"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="25dp"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                />
+
+
+            <Chronometer
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/restaurantMessage"
+                android:layout_toLeftOf="@+id/reportTimeButton"
+                android:layout_toStartOf="@+id/reportTimeButton"
+                android:id="@+id/waitTimer" />
 
             <TextView
                 android:id="@+id/HistoryName"
@@ -77,15 +87,30 @@
                 android:textSize="25sp"
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
-                android:layout_below="@+id/timerButton" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true" />
 
-            <Chronometer
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_below="@+id/restaurantMessage"
-                android:layout_toLeftOf="@+id/reportTimeButton"
-                android:layout_toStartOf="@+id/reportTimeButton"
-                android:id="@+id/waitTimer" />
+            <Button
+                android:text="Report manual time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:layout_alignEnd="@+id/reportTimeButton"
+                android:layout_below="@+id/reportTimeButton"
+                android:layout_toEndOf="@+id/waitTimer"
+                android:onClick="manualTime"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editText"
+                android:hint="Minutes"
+                android:layout_alignStart="@+id/timerButton"
+                android:layout_below="@+id/timerButton"
+                android:layout_alignEnd="@+id/timerButton"
+                />
         </RelativeLayout>
 
 

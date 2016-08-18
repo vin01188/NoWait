@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.vince.nowait.fragments.MainFragment;
 import com.vince.nowait.fragments.ProfileFragment;
 import com.vince.nowait.fragments.RestaurantFragment;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private FirebaseDatabase mFirebaseData;
 
     static final int SEARCH_REQUEST = 1;
 
@@ -70,6 +72,8 @@ public class MainActivity extends AppCompatActivity
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+
         if (mFirebaseUser == null)
         {
             // If not signed in, launch the Sign In activity

@@ -31,6 +31,7 @@ public class RestaurantFragment extends Fragment {
     Chronometer waitTimer;
     private boolean timerOn = false;
     private long lastPause;
+    TextView title, message;
 
     public RestaurantFragment() {
         // Required empty public constructor
@@ -69,8 +70,8 @@ public class RestaurantFragment extends Fragment {
         //image.setImageResource(R.drawable.profile_icon);
 
         //Get references to the name, message, and icon values
-        TextView title = (TextView) view.findViewById(R.id.restaurantName);
-        TextView message = (TextView) view.findViewById(R.id.restaurantMessage);
+        title = (TextView) view.findViewById(R.id.restaurantName);
+        message = (TextView) view.findViewById(R.id.restaurantMessage);
         ImageView icon = (ImageView) view.findViewById(R.id.restaurantIcon);
 
         Intent intent = getActivity().getIntent();
@@ -81,19 +82,17 @@ public class RestaurantFragment extends Fragment {
 
         String url = intent.getExtras().getString(MainActivity.RESTAURANT_IMAGEURL_EXTRA);
         Picasso.with(getActivity()).load(url).into(icon);
-       /* try {
-            URL newurl = new URL(url);
-            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-            icon.setImageBitmap(mIcon_val);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }*/
+
 
         return view;
     }
+
+    public void manualTime(View view){
+        String name = title.toString();
+        String mess = message.toString();
+        String address = mess.substring(mess.indexOf(": ") + 2, mess.indexOf("\n"));
+
+    }
+
 }
 

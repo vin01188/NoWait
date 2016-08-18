@@ -12,8 +12,15 @@ import android.view.View;
 
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.vince.nowait.MainActivity;
 
+import com.vince.nowait.Restaurant;
 import com.vince.nowait.RestaurantDetailActivity;
 
 import com.yelp.clientlib.connection.YelpAPI;
@@ -40,11 +47,51 @@ public class SearchFragment extends ListFragment
 
     private ArrayList<Note> notes;
     private NoteAdapter noteAdapter;
+    private ArrayList<String> restaurantNames;
     public String test;
+
+    private FirebaseAuth mFirebaseAuth;
+    private DatabaseReference mFirebaseDatabaseReference;
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        restaurantNames = new ArrayList<String>();
+
+        final DatabaseReference restaurantRef = mFirebaseDatabaseReference.child("Restaurants");
+        restaurantRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String name = dataSnapshot.getKey();
+                Log.v("E_CHILD_ADDED", name);
+                restaurantNames.add(name);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         notes = new ArrayList<Note>();
 
@@ -66,6 +113,14 @@ public class SearchFragment extends ListFragment
                   String phonenumber = currentbus.displayPhone();
                   String imageurl = currentbus.imageUrl();
                   notes.add(new Note(businessname, "Address: " + address + "\nPhone number: " + phonenumber, imageurl));
+
+                  //Adds restaurant to database if not already in the database.
+                  if (restaurantNames.indexOf(businessname) == -1){
+                      Restaurant rest = new Restaurant(businessname,address);
+                      restaurantRef.child(businessname).setValue(rest);
+
+                  }
+
               }
 
 
@@ -112,6 +167,8 @@ public class SearchFragment extends ListFragment
         };
         Call<SearchResponse> call = yelpAPI.search(coord, params);
         call.enqueue(callback);
+
+
 
         //getListView().setDivider(ContextCompat.getDrawable(getActivity(), android.R.color.black));
         //getListView().setDividerHeight(1);
