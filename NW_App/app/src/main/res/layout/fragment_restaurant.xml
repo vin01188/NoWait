@@ -37,7 +37,8 @@
                 android:textSize="25sp"
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
-                android:layout_below="@+id/restaurantIcon" />
+                android:layout_below="@+id/restaurantIcon"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,39 +79,41 @@
                 android:layout_toStartOf="@+id/reportTimeButton"
                 android:id="@+id/waitTimer" />
 
-            <TextView
-                android:id="@+id/HistoryName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="Wait Time History"
-                android:textSize="25sp"
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true" />
-
             <Button
                 android:text="Report manual time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button2"
+                android:id="@+id/manualButton"
                 android:layout_alignEnd="@+id/reportTimeButton"
                 android:layout_below="@+id/reportTimeButton"
-                android:layout_toEndOf="@+id/waitTimer"
-                android:onClick="manualTime"/>
+                android:layout_toEndOf="@+id/waitTimer" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/editText"
+                android:id="@+id/minutes"
                 android:hint="Minutes"
                 android:layout_alignStart="@+id/timerButton"
                 android:layout_below="@+id/timerButton"
                 android:layout_alignEnd="@+id/timerButton"
                 />
+
+            <TextView
+                android:id="@+id/average"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Wait Time Average"
+                android:textSize="25sp"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:text="Wait Time Average: "
+                android:textColor="@color/common_google_signin_btn_text_light_pressed"
+                android:layout_below="@+id/manualButton"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="33dp" />
         </RelativeLayout>
 
 

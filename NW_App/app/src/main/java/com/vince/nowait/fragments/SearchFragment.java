@@ -124,6 +124,7 @@ public class SearchFragment extends ListFragment
               }
 
 
+
               noteAdapter = new NoteAdapter(getActivity(), notes);
               setListAdapter(noteAdapter);
           }

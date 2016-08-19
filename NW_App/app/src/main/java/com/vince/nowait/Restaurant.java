@@ -33,6 +33,12 @@ public class Restaurant {
     public int getCheckins(){
         return checkins;
     }
+    public void setCheckins(int checkins){
+        this.checkins = checkins;
+    }
+    public void setWaitTime(int time){
+        this.waitTime = time;
+    }
 
     public void setName(String name){
        this.name = name;

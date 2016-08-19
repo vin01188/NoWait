@@ -209,8 +209,6 @@ public class MainActivity extends AppCompatActivity
             // Handles the Search Option
             Intent searchIntent = new Intent(this, Search.class);
             startActivityForResult(searchIntent, SEARCH_REQUEST);
-        }else if (id == R.id.nav_restaurant) {
-            fm.beginTransaction().replace(R.id.content_frame, new RestaurantFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
