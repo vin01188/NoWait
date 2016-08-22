@@ -73,19 +73,7 @@ public class NoteAdapter extends ArrayAdapter<Note>
         viewHolder.note.setText(note.getMessage());
         // change this
         Picasso.with(getContext()).load(note.getImageurl()).into(viewHolder.noteIcon);
-/*
-        try {
-            URL newurl = new URL(note.getImageurl());
-            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-            viewHolder.noteIcon.setImageBitmap(mIcon_val);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-        */
+
         return convertView;
     }
 }

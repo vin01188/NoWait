@@ -35,15 +35,7 @@
             android:paddingLeft="10dp"
             android:layout_toRightOf="@+id/profileImageBig"
             android:layout_below="@id/profileName"/>
-        <TextView
-            android:id="@+id/recentPlaces"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="15dp"
-            android:hint="Recent Places"
-            android:textSize="25sp"
-            android:layout_below="@id/profileImageBig"/>
+
     </RelativeLayout>
 
 </FrameLayout>

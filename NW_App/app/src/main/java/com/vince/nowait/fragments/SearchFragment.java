@@ -50,6 +50,8 @@ public class SearchFragment extends ListFragment
     private ArrayList<String> restaurantNames;
     public String test;
 
+    private String consumerKey,consumerSecret,token, tokenSecret;
+
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mFirebaseDatabaseReference;
     @Override
@@ -57,6 +59,10 @@ public class SearchFragment extends ListFragment
     {
         super.onActivityCreated(savedInstanceState);
 
+        consumerKey ="";
+        consumerSecret ="";
+        token ="";
+        tokenSecret ="";
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -95,8 +101,8 @@ public class SearchFragment extends ListFragment
 
         notes = new ArrayList<Note>();
 
-        YelpAPIFactory apiFactory = new YelpAPIFactory("NRgw6sbUbjHMtLSa6NOn6Q", "7Xztu7llvrePGYyL1Q8GmUz7gfA",
-                "BGwMfP3C0etBQ1WEBYINnXvzId7vDZJ0", "vZr0uqC-nBXk2H2Dv6zRM5mRtxo");
+        YelpAPIFactory apiFactory = new YelpAPIFactory(consumerKey,consumerSecret,
+                token, tokenSecret);
         YelpAPI yelpAPI = apiFactory.createAPI();
         Callback<SearchResponse> callback = new Callback<SearchResponse>(){
           @Override

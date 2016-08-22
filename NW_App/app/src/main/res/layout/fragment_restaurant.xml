@@ -49,19 +49,34 @@
                 android:textColor="#000000"
                 android:layout_below="@+id/restaurantName"/>
 
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/minutes"
-                android:hint="Minutes"
+            <Button
+                android:id="@+id/timerButton"
+                android:text="Timer Start"
+                android:layout_width="125dp"
+                android:layout_height="75dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="25dp"
-                android:layout_alignStart="@+id/timerButton"
                 android:layout_below="@+id/restaurantMessage"
-                android:layout_alignEnd="@+id/restaurantMessage" />
+                android:layout_alignParentLeft="true"/>
+
+
+            <Chronometer
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/restaurantMessage"
+                android:layout_toLeftOf="@+id/reportTimeButton"
+                android:layout_toStartOf="@+id/reportTimeButton"
+                android:id="@+id/waitTimer" />
+
+            <Button
+                android:text="Report manual time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/manualButton"
+                android:layout_alignEnd="@+id/reportTimeButton"
+                android:layout_below="@+id/reportTimeButton"
+                android:layout_toEndOf="@+id/waitTimer"
+                android:layout_alignStart="@+id/reportTimeButton" />
 
             <TextView
                 android:id="@+id/average"
@@ -79,13 +94,25 @@
                 android:layout_marginTop="33dp" />
 
             <Button
-                android:text="Report manual time"
-                android:layout_width="wrap_content"
+                android:id="@+id/reportTimeButton"
+                android:text="Report Wait Time"
+                android:layout_width="125dp"
+                android:layout_height="75dp"
+                android:layout_marginRight="50dp"
+                android:layout_alignTop="@+id/timerButton"
+                android:layout_toEndOf="@+id/timerButton"
+                android:layout_marginStart="19dp" />
+
+            <EditText
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/manualButton"
-                android:layout_alignBaseline="@+id/minutes"
-                android:layout_alignBottom="@+id/minutes"
-                android:layout_toEndOf="@+id/minutes" />
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/minutes"
+                android:hint="Minutes"
+                android:layout_above="@+id/average"
+                android:layout_alignStart="@+id/timerButton"
+                />
         </RelativeLayout>
 
 
