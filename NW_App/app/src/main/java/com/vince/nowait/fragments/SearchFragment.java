@@ -118,6 +118,7 @@ public class SearchFragment extends ListFragment
                   address = address.substring(1,address.length()-1);
                   String phonenumber = currentbus.displayPhone();
                   String imageurl = currentbus.imageUrl();
+                  businessname = businessname.replaceAll("[.]"," ");
                   notes.add(new Note(businessname, "Address: " + address + "\nPhone number: " + phonenumber, imageurl));
 
                   //Adds restaurant to database if not already in the database.
