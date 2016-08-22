@@ -3,8 +3,11 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:text="Main Fragment"
+        android:text="Use the search bar to search for restaurants around a certain location and click on a restaurant to submit a wait time/see the average wait time."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+        android:id="@+id/textView2"
+        android:textSize="40sp"
+        android:textAlignment="textStart"
+        android:padding="10dp"/>
 </FrameLayout>
